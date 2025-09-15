@@ -1,8 +1,8 @@
 import java.util.Objects;
 
 public class Task {
-    private String title;
-    private String description;
+    private final String title;
+    private final String description;
     private int id;
     private TasksStatus status;
 
@@ -58,7 +58,7 @@ public class Task {
                 ", Описание= '" + description + '\'' +
                 ", id= " + id +
                 ", Статус= '" + status + '\'' +
-                '}';
+                '}' + '\n';
     }
 }
 

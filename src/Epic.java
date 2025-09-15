@@ -3,7 +3,7 @@ import java.util.Objects;
 
 public class Epic extends Task{
 
-    private HashMap<Integer, Subtask> subTaskMap = new HashMap<>();
+    private final HashMap<Integer, Subtask> subTaskMap = new HashMap<>();
 
     public Epic(String title, String description) {
         super(title, description);
@@ -37,6 +37,6 @@ public class Epic extends Task{
                 ", описание= '" + super.getDescription() + '\'' +
                 " , id= " + super.getId() +
                 " , Статус= '" + super.getStatus() + '\'' +
-                '}';
+                '}'+'\n';
     }
 }

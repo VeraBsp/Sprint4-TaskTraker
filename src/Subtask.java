@@ -34,6 +34,6 @@ public class Subtask extends Task{
         return "Subtask{ " +
                 super.toString()+
                 "Принадлежит эпику = " + epicId +
-                '}';
+                '}' + '\n';
     }
 }
