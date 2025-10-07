@@ -1,0 +1,9 @@
+id,type,name,status,description,epic
+1,TASK,task1,IN_PROGRESS,Забрать заказ №125
+2,TASK,task2,DONE,Сложить вещи в шкафу
+10,TASK,task3,NEW,TASK3
+7,EPIC,epic2,IN_PROGRESS,ораганизовать праздник день рождения
+9,EPIC,epic3,NEW,Выучить уроки история и математика
+8,SUBTASK,subtask3 (относится к epic2),IN_PROGRESS,заказать торт ко дню рождения,7
+
+7,9,2,1,8

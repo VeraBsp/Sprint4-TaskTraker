@@ -5,8 +5,12 @@ public class Epic extends Task{
 
     private final HashMap<Integer, Subtask> subTaskMap = new HashMap<>();
 
-    public Epic(String title, String description) {
-        super(title, description);
+    public Epic(String title, String description, TaskType taskType) {
+        super(title, description,taskType);
+    }
+
+    public Epic(int id, TaskType taskType, String title, String description, TasksStatus status) {
+        super(id, taskType, title, description, status);  // Вызываем расширенный конструктор базового класса
     }
 
     public HashMap<Integer, Subtask> getSubTaskMap() {
