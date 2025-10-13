@@ -36,9 +36,6 @@ public class Subtask extends Task{
 
     @Override
     public String toString() {
-        return "Subtask{ " +
-                super.toString()+
-                "Принадлежит эпику = " + epicId +
-                '}' + '\n';
+        return super.getId() + "," + super.getTaskType() + "," + super.getTitle() + "," + super.getStatus() + "," + super.getDescription() + "," + epicId;
     }
 }

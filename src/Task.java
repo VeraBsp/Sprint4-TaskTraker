@@ -12,6 +12,7 @@ public class Task {
         this.description = description;
         this.taskType = taskType;
     }
+
     public Task(int id, TaskType taskType, String title, String description, TasksStatus status) {
         this.id = id;
         this.title = title;
@@ -70,12 +71,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{ " +
-                "Имя задачи= '" + title + '\'' +
-                ", Описание= '" + description + '\'' +
-                ", id= " + id +
-                ", Статус= '" + status + '\'' +
-                '}' + '\n';
+        return id + "," + taskType + "," + title + "," + status + "," + description;
     }
 }
 

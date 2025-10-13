@@ -115,8 +115,6 @@ public class TaskTracker {
 //        System.out.println("История просмотров:" + '\n' + manager.getHistoryManager().getHistory());
 //        manager.createTask(task3);
 //        manager.save();
-
         manager.loadFromFile(new File("./resources/currentstatusmanager.csv"));
-
     }
 }
