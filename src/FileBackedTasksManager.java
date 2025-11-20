@@ -9,12 +9,23 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     private static final String FIRST_LINE = "id,type,name,status,description,epic";
     private final File FILE;
 
-    public FileBackedTasksManager(File FILE) {
+    public FileBackedTasksManager() {
         String fileName = "./resources/currentstatusmanager.csv";
         this.FILE = new File(fileName);
         try {
             if (!Files.exists(Paths.get(fileName))) {
              Files.createFile(Paths.get(fileName));
+            }
+        } catch (IOException e) {
+            throw new ManagerSaveException("Произошла ошибка при создании файла");
+        }
+    }
+
+    public FileBackedTasksManager(File FILE) {
+        this.FILE = FILE;
+        try {
+            if (!Files.exists(Paths.get(FILE.getName()))) {
+                Files.createFile(Paths.get(FILE.getName()));
             }
         } catch (IOException e) {
             throw new ManagerSaveException("Произошла ошибка при создании файла");
@@ -51,19 +62,19 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             while (br.ready()) {
                 String line = br.readLine();
                 if (!line.isBlank()) {
-                    Task task = fromString(line);
+                    Task task = fileBackedTasksManager.fromString(line);
                     if (task.getTaskType() == TaskType.TASK) {
-                        setSimpleTasks(task);
+                        fileBackedTasksManager.setSimpleTasks(task);
                     } else if (task.getTaskType() == TaskType.EPIC) {
-                        setEpicTasks((Epic) task);
+                        fileBackedTasksManager.setEpicTasks((Epic) task);
                     } else {
-                        setSubTasks((Subtask) task);
+                        fileBackedTasksManager.setSubTasks((Subtask) task);
                     }
                 } else {
                     String lineLast = br.readLine();
                     List<Integer> listTaskID = historyFromString(lineLast);
                     for (Integer taskId : listTaskID) {
-                        addAllTasksToHistory(taskId);
+                        fileBackedTasksManager.addAllTasksToHistory(taskId);
                     }
                 }
             }
@@ -102,12 +113,15 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     //метод восстановления менеджера истории из CSV
     public static List<Integer> historyFromString(String value) {
+        if (value != null) {
         List<Integer> taskID = new ArrayList<>();
         String[] values = value.split(",");
         for (String taskId : values) {
             taskID.add(Integer.valueOf(taskId));
         }
         return taskID;
+        }
+        return new ArrayList<>();
     }
 
     @Override

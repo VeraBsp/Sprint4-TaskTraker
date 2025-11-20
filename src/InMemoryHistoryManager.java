@@ -2,17 +2,18 @@ import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
     private final int maxSize = 10;
-
     private final Map<Integer, Node<Task>> historyTasks = new HashMap<>();
 
     private final CustomLinkedList<Task> customLinkedList = new CustomLinkedList<>();
 
     @Override
     public void add(Task task) {
-        if (historyTasks.containsKey(task.getId())) {
-            remove(task.getId());
+        if (task != null) {
+            if (historyTasks.containsKey(task.getId())) {
+                remove(task.getId());
+            }
+            customLinkedList.linkLast(task);
         }
-        customLinkedList.linkLast(task);
     }
 
     @Override
@@ -56,26 +57,20 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
 
         public void removeNode(Node<Task> node) {
-            if (node == head) {
+            if (node == head && node != tail) {
                 head = node.getNext();
                 head.setPrev(null);
-                node.setNext(null);
-            } else if (node == tail) {
+            } else if (node == tail && node != head) {
                 tail = node.getPrev();
                 tail.setNext(null);
-                node.setPrev(null);
+            } else if (head == tail) {
+                head = null;
+                tail = null;
             } else {
-                Node<Task> prevNode = node.getPrev();
-                Node<Task> nextNode = node.getNext();
-
-                if (prevNode != null) {
-                    prevNode.setNext(nextNode);
-                }
-                if (nextNode != null) {
-                    nextNode.setPrev(prevNode);
-                }
-                node.setPrev(null);
-                node.setNext(null);
+                Node<Task> next = node.getNext();
+                Node<Task> prev = node.getPrev();
+                next.setPrev(prev);
+                prev.setNext(next);
             }
         }
     }
