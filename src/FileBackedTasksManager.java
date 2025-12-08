@@ -2,11 +2,12 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
-    private static final String FIRST_LINE = "id,type,name,status,description,epic";
+    private static final String FIRST_LINE = "startTime, id, type, name, status, description, epicID, duration";
     private final File FILE;
 
     public FileBackedTasksManager() {
@@ -88,14 +89,14 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public Task fromString(String value) {
         //1,TASK,Task1,NEW,Description task1
         String[] line = value.split(",");
-        TaskType type = TaskType.valueOf(line[1]);
+        TaskType type = TaskType.valueOf(line[2]);
         switch (type) {
             case TASK:
-                return new Task(Integer.parseInt(line[0]), TaskType.valueOf(line[1]), line[2], line[4], TasksStatus.valueOf(line[3]));
+                return new Task(Integer.parseInt(line[1].trim()), TaskType.valueOf(line[2]), line[3], line[5], TasksStatus.valueOf(line[4]), LocalDateTime.parse(line[0]), Integer.parseInt(line[6]));
             case EPIC:
-                return new Epic(Integer.parseInt(line[0]), TaskType.valueOf(line[1]), line[2], line[4], TasksStatus.valueOf(line[3]));
+                return new Epic(Integer.parseInt(line[1].trim()), TaskType.valueOf(line[2]), line[3], line[5], TasksStatus.valueOf(line[4]), parseEpicStartTime(line[0]), Integer.parseInt(line[6]));
             case SUBTASK:
-                return new Subtask(Integer.parseInt(line[0]), TaskType.valueOf(line[1]), line[2], line[4], TasksStatus.valueOf(line[3]), Integer.parseInt(line[5].trim()));
+                return new Subtask(Integer.parseInt(line[1].trim()), TaskType.valueOf(line[2]), line[3], line[5], TasksStatus.valueOf(line[4]), LocalDateTime.parse(line[0]),Integer.parseInt(line[7].trim()), Integer.parseInt(line[6].trim()));
             default:
                 return null;
         }
@@ -182,5 +183,11 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public void clearEpicTask(Epic epic) {
         super.clearEpicTask(epic);
         save();
+    }
+    private LocalDateTime parseEpicStartTime(String value){
+        if (value.equals("null")){
+            return  null;
+        }
+        else return LocalDateTime.parse(value);
     }
 }

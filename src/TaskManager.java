@@ -1,4 +1,6 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public interface TaskManager {
     void createTask(Task task);
@@ -30,5 +32,6 @@ public interface TaskManager {
 
     ArrayList<Task> getAllSubtasks();
     HistoryManager getHistoryManager();
+   TreeSet<Task> getPrioritizedTasks();
 
 }
