@@ -2,11 +2,14 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class Epic extends Task{
-
     private final HashMap<Integer, Subtask> subTaskMap = new HashMap<>();
 
-    public Epic(String title, String description) {
-        super(title, description);
+    public Epic(String title, String description, TaskType taskType) {
+        super(title, description,taskType);
+    }
+
+    public Epic(int id, TaskType taskType, String title, String description, TasksStatus status) {
+        super(id, taskType, title, description, status);
     }
 
     public HashMap<Integer, Subtask> getSubTaskMap() {
@@ -32,11 +35,6 @@ public class Epic extends Task{
 
     @Override
     public String toString() {
-        return "Epic{ " +
-                "Имя эпика= '" + super.getTitle() + '\'' +
-                ", описание= '" + super.getDescription() + '\'' +
-                " , id= " + super.getId() +
-                " , Статус= '" + super.getStatus() + '\'' +
-                '}'+'\n';
+        return super.getId() + "," + super.getTaskType() + "," + super.getTitle() + "," + super.getStatus() + "," + super.getDescription();
     }
 }

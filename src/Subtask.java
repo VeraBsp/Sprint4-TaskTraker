@@ -3,8 +3,13 @@ import java.util.Objects;
 public class Subtask extends Task{
     private int epicId;
 
-    public Subtask(String title, String description, int epicId) {
-        super(title, description);
+    public Subtask(String title, String description, int epicId, TaskType taskType) {
+        super(title, description, taskType);
+        this.epicId = epicId;
+    }
+
+    public Subtask(int id, TaskType taskType, String title, String description, TasksStatus status, int epicId) {
+        super(id, taskType, title, description, status);
         this.epicId = epicId;
     }
 
@@ -31,9 +36,6 @@ public class Subtask extends Task{
 
     @Override
     public String toString() {
-        return "Subtask{ " +
-                super.toString()+
-                "Принадлежит эпику = " + epicId +
-                '}' + '\n';
+        return super.getId() + "," + super.getTaskType() + "," + super.getTitle() + "," + super.getStatus() + "," + super.getDescription() + "," + epicId;
     }
 }
