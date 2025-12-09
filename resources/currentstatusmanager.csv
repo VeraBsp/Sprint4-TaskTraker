@@ -1,9 +1,9 @@
-id,type,name,status,description,epic
-1,TASK,task1,IN_PROGRESS,Забрать заказ №125
-2,TASK,task2,DONE,Сложить вещи в шкафу
-10,TASK,task3,NEW,TASK3
-7,EPIC,epic2,IN_PROGRESS,ораганизовать праздник день рождения
-9,EPIC,epic3,NEW,Выучить уроки история и математика
-8,SUBTASK,subtask3 (относится к epic2),IN_PROGRESS,заказать торт ко дню рождения,7
+startTime, id, type, name, status, description, epicID, duration
+null, 1,EPIC,epic1 ,NEW,epic1 description,0
+null, 5,EPIC,epic2,NEW,epic2 description,0
+null, 2,SUBTASK,subtask1,NEW,subtask1 (description относится к epic1),1,0
+null, 3,SUBTASK,subtask2,NEW,subtask2 (description относится к epic1),1,0
+null, 4,SUBTASK,subtask4,NEW,subtask4 (description относится к epic1),1,0
+null, 6,SUBTASK,subtask3,NEW,subtask3 (description относится к epic2),5,0
+null, 7,SUBTASK,subtask5,NEW,subtask5 (description относится к epic2),5,0
 
-7,9,2,1,8
